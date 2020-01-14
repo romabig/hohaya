@@ -1,0 +1,7 @@
+hohaya_user:
+    resource: "@HohayaUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hohaya:
+    resource: "@HohayaBundle/Resources/config/routing.yml"
+    prefix:   /

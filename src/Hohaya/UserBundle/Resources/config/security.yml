@@ -1,0 +1,37 @@
+
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    providers:
+        in_memory:
+            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+      # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: .*
+            form_login:
+                provider:               fos_userbundle
+                csrf_token_generator:   security.csrf.token_manager
+                login_path:             hohaya_user_security_login
+                use_forward:            false
+                check_path:             hohaya_user_security_check
+                failure_path:           null
+                default_target_path:    /HohayaAdmin/Dashboard
+                remember_me: true
+            remember_me: 
+                secret:                 "%secret%"
+                lifetime:               30000000
+                path:                   /
+                domain:                 ~
+            logout: 
+                path:                   hohaya_user_security_logout
+                target:                 /securite/connexion
+            anonymous:    true

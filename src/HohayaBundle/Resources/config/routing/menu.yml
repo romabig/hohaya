@@ -1,0 +1,24 @@
+menu_index:
+    path:     /
+    defaults: { _controller: "HohayaBundle:Menu:index" }
+    methods:  GET
+
+menu_show:
+    path:     /{id}/show
+    defaults: { _controller: "HohayaBundle:Menu:show" }
+    methods:  GET
+
+menu_new:
+    path:     /Nouveau/{id}
+    defaults: { _controller: "HohayaBundle:Menu:new", id:null }
+    methods:  [GET, POST]
+
+menu_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HohayaBundle:Menu:edit" }
+    methods:  [GET, POST]
+
+menu_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HohayaBundle:Menu:delete" }
+    methods:  GET

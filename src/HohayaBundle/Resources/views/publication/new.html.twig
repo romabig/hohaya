@@ -1,0 +1,310 @@
+{% extends 'backend.template.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css"> -->
+    <link rel="stylesheet" href="{{ asset('bundles/hohaya/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('bundles/hohaya/admin/plugins/iCheck/all.css') }}">
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h1 class="box-title">
+                    Publication
+                </h1>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ form_start(form, { 'enctype' : 'multipart/form-data', 'action':path('publication_new', {'id':id})}) }}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- checkbox -->
+                        <div class="form-group col-sm-6">
+                            {{ form_widget(form.estActif) }}
+                                <span>&nbsp;</span>
+                                {{ form_label(form.estActif) }}
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            {{ form_widget(form.estSlide) }}
+                                <span>&nbsp;</span>
+                                {{ form_label(form.estSlide) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.menu)}}
+                            {{ form_widget(form.menu)}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.smenu, 'Sous Menu')}}
+                            {{ form_widget(form.smenu)}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.ssmenu, 'Sous sous Menu')}}
+                            {{ form_widget(form.ssmenu,{'attr':{'class':'form-control'}})}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.icon, 'Icône')}}
+                            {{ form_widget(form.icon)}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.titre)}}
+                            {{ form_widget(form.titre,{'attr':{'class':'form-control'}})}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.description)}}
+                            {{ form_widget(form.description)}}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.contenu)}}
+                            {{ form_widget(form.contenu)}}
+                        </div>
+
+                        <div class="form-group">
+                            {% if erreurimg is defined %}<span class="text-danger">{{ erreurimg }}</span>{% endif %}
+                            {# <input name="hohayabundle_publication[nomImage]" id="hohayabundle_publication_nomImage" type="file" class="hidden" onchange="$('#profile').val(this.files[0].name);"/> #}
+                            {{ form_widget(form.nomImage,{'attr':{'class':'hidden','onchange':"$('#profile').val(this.files[0].name);"}})}}
+                            <div class="input-group" onclick="$('#hohayabundle_publication_nomImage').click();">
+                                <label class="input-group-addon">
+                                    <i class="fa fa-photo"></i>
+                                </label>
+                                {# {{ form_widget(form.nomImage) }} #}
+                                <input type="text" class="form-control" id="profile" 
+                                    value="{% if erreurimg is not defined %}{{ publication.nomImage }}{% endif %}" name="" placeholder="photo" disabled="">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary">Image</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {% if erreurpdf is defined %}<span class="text-danger">{{ erreurpdf }}</span>{% endif %}
+                            {# <input name="hohayabundle_publication[nomPDF]" type="file" class="hidden" id="hohayabundle_publication_nomPDF" onchange="$('#pdf').val(this.files[0].name);"/> #}
+                            {{ form_widget(form.nomPDF,{'attr':{'class':'hidden','onchange':"$('#pdf').val(this.files[0].name);"}})}}
+                            <div class="input-group" onclick="$('#hohayabundle_publication_nomPDF').click();">
+                                <label class="input-group-addon">
+                                    <i class="fa fa-photo"></i>
+                                </label>
+                                {# {{ form_widget(form.nomPDF) }} #}
+                                <input type="text" class="form-control" id="pdf" 
+                                    value="{% if erreurpdf is not defined %}{{ publication.nomPDF }}{% endif %}" name="" placeholder="PDF" disabled="">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary">PDF</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.titreImage) }}
+                            {{ form_widget(form.titreImage) }}
+                        </div>
+
+                        {# <div class="form-group">
+                                {{ form_label(form.datecreation)}}
+                                {{ form_widget(form.datecreation)}}
+                            </div> #}
+                        {% if erreurimg is defined %}<span class="text-danger">{{ erreurimg }}</span>{% endif %}
+                        {% if photos|length > 0 %}
+                            {% for key, photo in photos %}
+                                <div class='file_upload form-group' id="f{{ key + 1 }}" data-id="{{ photo.id }}">
+                                    {# <input name='file[]' type='file'/>1 #}
+                                    <input name="hohayabundle_publication[photos][]" type="file" id = "hohayabundle_publication_photos_{{ key + 1 }}" onchange="$('#fichier{{ key + 1 }}').val(this.files[0].name); $('#ismodify{{ key + 1 }}').val('true');" class="hidden"/>
+                                    {# {{ form_widget(form.nomPDF,{'attr':{'class':'hidden','onchange':"$('#pdf').val(this.files[0].name);"}})}} #}
+                                    <div class="input-group" onclick="$('#hohayabundle_publication_photos_{{ key + 1 }}').click();">
+                                        <label class="input-group-addon">
+                                            <i class="fa fa-photo"></i>
+                                        </label>
+                                        <input type="text" value="false" name="hohayabundle_publication[IsModify][]" class="ismodify hidden" />
+                                        <input type="text" value="{{ photo.id }}" name="hohayabundle_publication[id][]" class="entityId hidden" />
+                                        <input type="text" value="{{ photo.name }}" class="form-control" id="fichier{{ key + 1 }}" 
+                                                name="" placeholder="Fichier {{ key + 1 }}" disabled="">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary">AUTRES FICHIERS</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class='file_upload form-group' id="f1" data-id="0">
+                                {# <input name='file[]' type='file'/>1 #}
+                                <input name="hohayabundle_publication[photos][]" type="file" id = "hohayabundle_publication_photos_1" onchange="$('#fichier1').val(this.files[0].name);" class="hidden"/>
+                                {# {{ form_widget(form.nomPDF,{'attr':{'class':'hidden','onchange':"$('#pdf').val(this.files[0].name);"}})}} #}
+                                <div class="input-group" onclick="$('#hohayabundle_publication_photos_1').click();">
+                                    <label class="input-group-addon">
+                                        <i class="fa fa-photo"></i>
+                                    </label>
+                                    <input type="text" value="false" name="hohayabundle_publication[IsModify][]" class="ismodify hidden" />
+                                    <input type="text" value="0" name="hohayabundle_publication[id][]" class="entityId hidden" />
+                                    <input type="text" value="" class="form-control" id="fichier1" 
+                                            name="" placeholder="Fichier 1" disabled="">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary">AUTRES FICHIERS</button>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div id='file_tools'>
+                            <button id='add_file' type="button">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                            <button id='del_file' type="button">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        {# {% endif %} #}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <a href=" {{ path('publication_index')}}">
+                            <input type="button" class="btn btn-warning btn-sm" value="Retour à la liste" name="">
+                        </a>
+                        <a href="">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Enregistrer">
+                        </a>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script> -->
+    <script src="{{ asset('bundles/hohaya/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ asset('bundles/hohaya/admin/plugins/iCheck/icheck.min.js') }}"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({checkboxClass: 'icheckbox_minimal-blue', radioClass: 'iradio_minimal-blue'})
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({checkboxClass: 'icheckbox_minimal-red', radioClass: 'iradio_minimal-red'})
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'})
+        });
+    </script>
+
+    <script>
+        var counter = '{{ photos|length + 1 }}';
+
+        if('{{ photos|length }}' == 0)
+        {
+            counter = 2;
+        }
+
+        function loadTextInput()
+        {
+            $('#hohayabundle_publication_photos_'+(counter-1)).trigger('click');
+
+            $('#hohayabundle_publication_photos_'+(counter-1)).change(function(){
+                fileName = $(this).prop('files')[0].name;
+                $("#fichier"+(counter-1)).val(fileName);
+            });
+        }
+
+        jQuery(document).ready(function () {
+            $('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+
+            $(".file_upload").each(function( index ) {
+                $('#hohayabundle_publication_photos_'+(index+1)).change(function(){
+                    $(this).parent('.file_upload').find('.input-group').find('input[type="text"].ismodify').val('true');
+                });
+            });
+            
+            $('#del_file').hide(); 
+
+            $('#add_file').click(function(){ 
+                $('#file_tools').before('<div class="file_upload form-group" id="f'+counter+'" data-id="0"><input name="hohayabundle_publication[photos][]" type="file" id="hohayabundle_publication_photos_'+counter+'" class="hidden"/><div class="input-group" onclick="loadTextInput();">' + 
+                            '<label class="input-group-addon"><i class="fa fa-photo"></i></label><input type="text" class = "ismodify hidden" value="true" name="hohayabundle_publication[IsModify][]" />'+
+                            '<input type="text" class="entityId hidden" value="0" name="hohayabundle_publication[id][]" />' +
+                            '<input type="text" class="form-control" id="fichier'+counter+'" name="" placeholder="Fichier '+counter+'" disabled="">' + 
+                            '<span class="input-group-btn" id="file_group_'+counter+'"><button type="button" class="btn btn-primary">AUTRES FICHIERS</button></span></div></div>');
+                $('#del_file').fadeIn(0);
+                counter++;
+            });
+
+            $('#del_file').click(function(){
+                if(counter==3){
+                    $('#del_file').hide();
+                }   
+                counter--;
+                $('#f'+counter).remove();
+            });
+
+            $form = $('[name="hohayabundle_publication"]');
+            $form.submit(function (event) {
+                //event.preventDefault();
+                //console.log($form["titre"]);
+                //console.log($("#hohayabundle_actualite_photos_0_file")[0].files);
+            });
+
+            $("#hohayabundle_publication_menu").change(function () {
+                var data = {
+                    menu_id: $(this).val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("publication_select_smenu") }}',
+                    dataType: "JSON",
+                    data: data,
+                    success: function (smenus) {
+                        console.log('Résultat :' + data);
+                        var $smenu_selector = $('#hohayabundle_publication_smenu');
+
+                        $smenu_selector.html('<option value="" selected="selected">Sélectionner un sous menu...</option>');
+
+                        $.each(smenus, function (key, smenu) {
+                            $smenu_selector.append('<option value="' + smenu.id + '">' + smenu.titre + '</option>');
+                        });
+
+                        $('#hohayabundle_publication_ssmenu').html('<option value="" selected="selected">Sélectionner un sous sous menu...</option>');
+                    }
+                });
+            });
+
+            $("#hohayabundle_publication_smenu").change(function (event) {
+                var data = {
+                    smenu_id: $(this).val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("publication_select_ssmenu") }}',
+                    dataType: "JSON",
+                    data: data,
+                    success: function (ssmenus) {
+                        var $ssmenu_selector = $('#hohayabundle_publication_ssmenu');
+
+                        $ssmenu_selector.html('<option value="" selected="selected">Sélectionner un sous sous menu...</option>');
+
+                        $.each(ssmenus, function (key, ssmenu) {
+                            $ssmenu_selector.append('<option value="' + ssmenu.id + '">' + ssmenu.titre + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    {{ tinymce_init() }}
+{% endblock %}

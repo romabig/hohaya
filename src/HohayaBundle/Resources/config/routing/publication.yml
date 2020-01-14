@@ -1,0 +1,32 @@
+publication_index:
+    path:     /
+    defaults: { _controller: "HohayaBundle:Publication:index" }
+    methods:  GET
+
+publication_show:
+    path:     /{id}/show
+    defaults: { _controller: "HohayaBundle:Publication:show" }
+    methods:  GET
+
+publication_new:
+    path:     /Nouveau/{id}
+    defaults: { _controller: "HohayaBundle:Publication:new", id:null }
+    methods:  [GET, POST]
+
+publication_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HohayaBundle:Publication:edit" }
+    methods:  [GET, POST]
+
+publication_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HohayaBundle:Publication:delete" }
+    methods:  GET
+
+publication_select_smenu:
+    path:     /publication/smenu
+    defaults: { _controller: "HohayaBundle:Publication:SMenu" }
+
+publication_select_ssmenu:
+    path:     /publication/ssmenu
+    defaults: { _controller: "HohayaBundle:Publication:SSMenu" }

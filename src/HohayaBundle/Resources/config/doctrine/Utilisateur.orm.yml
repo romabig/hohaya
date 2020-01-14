@@ -1,0 +1,125 @@
+HohayaBundle\Entity\Utilisateur:
+    type: entity
+    table: utilisateur
+    uniqueConstraints:
+        UNIQ_1D1C63B3A0D96FBF:
+            columns:
+                - email_canonical
+        UNIQ_1D1C63B392FC23A8:
+            columns:
+                - username_canonical
+        UNIQ_1D1C63B3C05FB297:
+            columns:
+                - confirmation_token
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 180
+            options:
+                fixed: false
+        usernameCanonical:
+            type: string
+            nullable: false
+            length: 180
+            options:
+                fixed: false
+            column: username_canonical
+        email:
+            type: string
+            nullable: false
+            length: 180
+            options:
+                fixed: false
+        emailCanonical:
+            type: string
+            nullable: false
+            length: 180
+            options:
+                fixed: false
+            column: email_canonical
+        enabled:
+            type: boolean
+            nullable: false
+        salt:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        confirmationToken:
+            type: string
+            nullable: true
+            length: 180
+            options:
+                fixed: false
+            column: confirmation_token
+        passwordRequestedAt:
+            type: datetime
+            nullable: true
+            column: password_requested_at
+        roles:
+            type: array
+            nullable: false
+            length: 0
+            options:
+                fixed: false
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        prenom:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        photo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        adresse:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        dateentree:
+            type: datetime
+            nullable: true
+            column: dateEntree
+        estActif:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: est_actif
+        supprimer:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+    lifecycleCallbacks: {  }

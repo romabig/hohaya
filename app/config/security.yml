@@ -1,0 +1,45 @@
+imports:
+    - { resource: "@HohayaUserBundle/Resources/config/security.yml" }
+
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+        HohayaUserBundle\Entity\Utilisateur: sha512
+
+    role_hierarchy:
+        ROLE_SIMPLE:      ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SIMPLE]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_SIMPLE, ROLE_ALLOWED_TO_SWITCH]
+
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern:
+            form_login:
+                provider: fos_userbundle
+                #                csrf_provider: form.csrf_provider
+                default_target_path: /HohayaAdmin/Dashboard
+            logout:       true
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, role: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: ^/HohayaAdmin/register, role: ROLE_SUPER_ADMIN }
+        # - { path: ^/confirmed, role: ROLE_SUPER_ADMIN }
+        - { path: ^/HohayaAdmin/resetting, role: ROLE_SUPER_ADMIN }
+        - { path: ^/HohayaAdmin/menu/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/HohayaAdmin/smenu/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/HohayaAdmin/ssmenu/, role: ROLE_SUPER_ADMIN }
+#        - { path: ^/HohayaAdmin, role: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+        - { path: ^/HohayaAdmin/Dashboard/, role: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }

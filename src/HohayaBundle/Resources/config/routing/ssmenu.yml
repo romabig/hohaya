@@ -1,0 +1,24 @@
+ssmenu_index:
+    path:     /
+    defaults: { _controller: "HohayaBundle:SSMenu:index" }
+    methods:  GET
+
+ssmenu_show:
+    path:     /{id}/show
+    defaults: { _controller: "HohayaBundle:SSMenu:show" }
+    methods:  GET
+
+ssmenu_new:
+    path:     /Nouveau/{id}
+    defaults: { _controller: "HohayaBundle:SSMenu:new", id:null }
+    methods:  [GET, POST]
+
+ssmenu_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HohayaBundle:SSMenu:edit" }
+    methods:  [GET, POST]
+
+ssmenu_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HohayaBundle:SSMenu:delete" }
+    methods:  GET

@@ -1,0 +1,15 @@
+hohaya_user_security_login:
+    path:     /connexion
+    defaults: { _controller: hohaya_user.security.controller:loginAction }
+    methods:  [GET, POST]
+
+hohaya_user_security_check:
+    path:     /login_check
+    defaults: { _controller: hohaya_user.security.controller:checkAction }
+    methods:  [POST]
+
+hohaya_user_security_logout:
+    path:     /deconnexion
+    defaults: { _controller: hohaya_user.security.controller:logoutAction }
+    methods:  [GET, POST]
+

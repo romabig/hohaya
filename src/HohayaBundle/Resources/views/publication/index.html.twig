@@ -1,0 +1,95 @@
+{% extends 'backend.template.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent()}}
+    <link href="{{ asset('bundles/hohaya/admin/plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h1 class="box-title">
+                    Liste des publications
+                </h1>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="table-responsive">
+                    <table id="publication" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Menu</th>
+                                <th>Sous Menu</th>
+                                <th>Sous sous Menu</th>
+                                <th>Titre</th>
+                                <th>Description</th>
+                                <th>Contenu</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for publication in publications %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('publication_show', { 'id': publication.id }) }}">{{ publication.id }}</a>
+                                    </td>
+                                    <td>{% if publication.menu %}{{ publication.menu.titre }}{% endif %}</td>
+                                    <td>{% if publication.smenu %}{{ publication.smenu.titre }}{% endif %}</td>
+                                    <td>{% if publication.ssmenu %}{{ publication.ssmenu.titre }}{% endif %}</td>
+                                    <td>{{ publication.titre }}</td>
+                                    <td>{{ publication.description[:60] ~ " ..." }}</td>
+                                    <td>{{ publication.contenu[:80] ~ " ..." }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Actions
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <li>
+                                                    <a href="{{ path('publication_show', { 'id': publication.id }) }}">Afficher</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('publication_new', {'id': publication.id }) }}">Modifier</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('publication_delete', {'id': publication.id }) }}">Supprimer</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script> -->
+    <script src="{{ asset('bundles/hohaya/admin/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/hohaya/admin/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('#publication').DataTable();
+        });
+    </script>
+{% endblock %}

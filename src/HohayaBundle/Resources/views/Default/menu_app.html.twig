@@ -1,0 +1,199 @@
+<ul class="sidebar-menu">
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Publications</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path('publication_index') }}">
+                        <i class="fa fa-circle-o"></i>Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("publication_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>Ajout</a>
+                </li>
+            </ul>
+        </li>
+        <li class="header">STANDARD</li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>Menu</span>
+                <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path("menu_index", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("menu_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Ajout</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-share"></i>
+                <span>SMenu</span>
+                <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path("smenu_index", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("smenu_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Ajout</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-folder"></i>
+                <span>SSMenu</span>
+                <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path("ssmenu_index", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("ssmenu_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>
+                        Ajout</a>
+                </li>
+            </ul>
+        </li>
+{#        <li class="treeview">#}
+{#            <a href="#">#}
+{#                <i class="fa fa-folder"></i>#}
+{#                <span>Historiques</span>#}
+{#                <span class="pull-right-container">#}
+{#                        <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#            </a>#}
+{#            <ul class="treeview-menu">#}
+{#                <li>#}
+{#                    <a href="{{ path("historique_index", {'id': null}) }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Liste</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </li>#}
+{#        <li class="treeview">#}
+{#            <a href="#">#}
+{#                <i class="fa fa-folder"></i>#}
+{#                <span>Agent</span>#}
+{#                <span class="pull-right-container">#}
+{#                        <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#            </a>#}
+{#            <ul class="treeview-menu">#}
+{#                <li>#}
+{#                    <a href="{{ path("agent_index", {'id': null}) }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Liste</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path("mica_user_registration_register") }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Ajout</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </li>#}
+    {% elseif is_granted("ROLE_ADMIN") %}
+
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Publications</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path('publication_index') }}">
+                        <i class="fa fa-circle-o"></i>Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("publication_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>Ajout</a>
+                </li>
+            </ul>
+        </li>
+{#        <li class="treeview">#}
+{#            <a href="#">#}
+{#                <i class="fa fa-folder"></i>#}
+{#                <span>Historiques</span>#}
+{#                <span class="pull-right-container">#}
+{#                        <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#            </a>#}
+{#            <ul class="treeview-menu">#}
+{#                <li>#}
+{#                    <a href="{{ path("historique_index", {'id': null}) }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Liste</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </li>#}
+{#        <li class="treeview">#}
+{#            <a href="#">#}
+{#                <i class="fa fa-folder"></i>#}
+{#                <span>Agent</span>#}
+{#                <span class="pull-right-container">#}
+{#                        <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#            </a>#}
+{#            <ul class="treeview-menu">#}
+{#                <li>#}
+{#                    <a href="{{ path("agent_index", {'id': null}) }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Liste</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path("hohaya_user_registration_register") }}">#}
+{#                        <i class="fa fa-circle-o"></i>#}
+{#                        Ajout</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </li>#}
+    {% elseif is_granted("ROLE_SIMPLE") %}
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Publications</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{ path('publication_index') }}">
+                        <i class="fa fa-circle-o"></i>Liste</a>
+                </li>
+                <li>
+                    <a href="{{ path("publication_new", {'id': null}) }}">
+                        <i class="fa fa-circle-o"></i>Ajout</a>
+                </li>
+            </ul>
+        </li>
+    {% endif %}
+</ul>

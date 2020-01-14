@@ -1,0 +1,63 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h1 class="box-title">
+                    Détails des informations
+                </h1>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div align="center">
+                            <img src="{% if user.photo %}{{ asset('uploads/Images/Utilisateur/' ~ user.id ~ '/' ~ user.photo) }}{% else %}{{ asset('uploads/Images/avatar.png') }}{% endif %}" height="150px" width="150px" class="img-circle" alt="Utilisateur image">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="table-responsive">
+                            <table id="agent" class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ user.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'profile.show.username'|trans }}</th>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'profile.show.email'|trans }}</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <a href="{{ path('agent_index')}}">
+                            <input type="button" class="btn btn-warning btn-sm" value="Retour à la liste" name="">
+                        </a>
+                        {% if is_granted("ROLE_SUPER_ADMIN") %}
+                            <a href="{{ path('mica_user_registration_register')}}">
+                                <input type="button" class="btn btn-success btn-sm" value="Ajouter" name="">
+                            </a>
+                            <a href="{{ path('mica_user_profile_edit', {'id':user.id})}}">
+                                <input type="button" class="btn btn-info btn-sm" value="Modifier" name="">
+                            </a>
+                        {% else %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

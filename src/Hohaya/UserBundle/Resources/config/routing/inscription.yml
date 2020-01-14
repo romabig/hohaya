@@ -1,0 +1,20 @@
+hohaya_user_registration_register:
+    path:     /
+    defaults: { _controller: hohaya_user.registration.controller:registerAction }
+    methods:  [GET, POST]
+
+hohaya_user_registration_check_email:
+    path:     /check-email
+    defaults: { _controller: hohaya_user.registration.controller:checkEmailAction }
+    methods:  [GET]
+
+hohaya_user_registration_confirm:
+    path:     /confirm/{token}
+    defaults: { _controller: hahaya_user.registration.controller:confirmAction }
+    methods:  [GET]
+
+hohaya_user_registration_confirmed:
+    path:     /confirmed-{id}
+    defaults: { _controller: hahaya_user.registration.controller:confirmedAction }
+    methods:  [GET]
+

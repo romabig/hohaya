@@ -1,0 +1,4 @@
+gestransport_user_change_password:
+    path:     /
+    defaults: { _controller: hohaya_user.change_password.controller:changePasswordAction }
+    methods:  [GET, POST]

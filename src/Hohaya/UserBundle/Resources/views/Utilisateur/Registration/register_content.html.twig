@@ -1,0 +1,97 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<section class="content">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h1 class="box-title">
+                    ENREGISTREMENT D'UN AGENT
+                </h1>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+            {% for flash_message in app.session.flashBag.get('fos_user_success') %}
+                <div class="alert alert-success">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(form, {'method': 'post', 'action': path('mica_user_registration_register'), 
+            'attr': {'class': 'fos_user_registration_register'}}) }}
+                <div class="form-group">
+                    {{ form_widget(form.estActif) }}
+                        <span>&nbsp;</span>
+                        {{ form_label(form.estActif) }}
+                </div>
+
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.nom,{'attr':{'class':'form-control', 'placeholder':'Nom'}})}}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.prenom,{'attr':{'class':'form-control', 'placeholder':'prenom'}})}}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.adresse,{'attr':{'class':'form-control', 'placeholder':'Adresse'}})}}
+                    <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.username,{'attr':{'class':'form-control', 'placeholder':'Login'}}) }}
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.email,{'attr':{'class':'form-control', 'placeholder':'Adresse email'}}) }}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.first,{'attr':{'class':'form-control', 'placeholder':'Mot de passe'}}) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.second,{'attr':{'class':'form-control', 'placeholder':'Répéter le mot de passe'}}) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <select class="form-control select2" multiple="multiple" name="fos_user_registration_form[roles][]" data-placeholder="Rôles" style="width: 100%;">
+                            <option value="ROLE_SIMPLE">ROLE_USER</option>
+                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            <option value="ROLE_SUPER_ADMIN">ROLE_SUPER_ADMIN</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.photo,{'attr':{'class':'hidden','onchange':"$('#profile').val(this.files[0].name);"}})}}
+                    <div class="input-group" onclick="$('#fos_user_registration_form_photo').click();">
+                        <label class="input-group-addon">
+                            <i class="fa fa-photo"></i>
+                        </label>
+                        <input type="text" class="form-control" id="profile" 
+                            value="" name="" placeholder="photo" disabled="">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary">Photo</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <a href=" {{ path('agent_index')}}">
+                            <input type="button" class="btn btn-warning btn-sm" value="Retour à la liste" name="">
+                        </a>
+                        <a href="">
+                            <input type="submit" class="btn btn-primary btn-sm btn-flat" value="{{ 'registration.submit'|trans }}">
+                        </a>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>

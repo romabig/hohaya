@@ -1,0 +1,104 @@
+{% extends 'backend.template.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css"> -->
+    <link rel="stylesheet" href="{{ asset('bundles/hohaya/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('bundles/hohaya/admin/plugins/iCheck/all.css') }}">
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+    {% block content %}
+        <section class="content">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h1 class="box-title">
+                        SMenu
+                    </h1>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    {{ form_start(form, { 'enctype' : 'multipart/form-data'}) }}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            
+                            <div class="form-group">
+                                <label>
+                                    {{ form_widget(form.masque) }}
+                                    <span>&nbsp;</span>
+                                    {{ form_label(form.masque) }}
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.titre)}}
+                                {{ form_widget(form.titre,{'attr':{'class':'form-control'}})}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.menu)}}
+                                {{ form_widget(form.menu)}}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hohayabundle_smenu_route" class="required">Route</label>
+                                <select id="hohayabundle_smenu_route" name="hohayabundle_smenu[route]" 
+                                class="form-control select2" style="width: 100%;">
+                                <option value="" selected="selected">Sélectionner une route...</option>
+                                {% for key, route in allRoutes %}
+                                    {% if sMenu.route == key %}
+                                        <option value="{{ key }}" selected>{{ key ~ " (" ~ route.path ~ ")" }}</option>
+                                    {% else %}
+                                        <option value="{{ key }}">{{ key ~ " (" ~ route.path ~ ")" }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.ordreAffichage)}}
+                            {{ form_widget(form.ordreAffichage,{'attr':{'class':'form-control'}})}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <a href=" {{ path('smenu_index')}}">
+                            <input type="button" class="btn btn-warning btn-sm" value="Retour à la liste" name="">
+                        </a>
+                        <a href="">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Enregistrer">
+                        </a>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script> -->
+    <script src="{{ asset('bundles/hohaya/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ asset('bundles/hohaya/admin/plugins/iCheck/icheck.min.js') }}"></script>
+
+    <script>
+    jQuery(document).ready(function () {
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({checkboxClass: 'icheckbox_minimal-blue', radioClass: 'iradio_minimal-blue'})
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({checkboxClass: 'icheckbox_minimal-red', radioClass: 'iradio_minimal-red'})
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green'})
+        });
+    </script>
+{% endblock %}

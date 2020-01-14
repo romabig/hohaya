@@ -1,0 +1,28 @@
+hohaya_homepage:
+    path:     /
+    defaults: { _controller: HohayaBundle:Default:index }
+
+################################################## Routes Administrateurs ##################################
+
+hohaya_dashboard:
+    path:     /HohayaAdmin/Dashboard
+    defaults: { _controller: HohayaBundle:Default:adminDashboard, id:null, cle:null }
+    options:
+        breadcrumb:
+            label: Dashboard
+
+hohaya_menu:
+    resource: "@HohayaBundle/Resources/config/routing/menu.yml"
+    prefix:   /HohayaAdmin/menu
+
+hohaya_smenu:
+    resource: "@HohayaBundle/Resources/config/routing/smenu.yml"
+    prefix:   /HohayaAdmin/smenu
+
+hohaya_ssmenu:
+    resource: "@HohayaBundle/Resources/config/routing/ssmenu.yml"
+    prefix:   /HohayaAdmin/ssmenu
+
+hohaya_publication:
+    resource: "@HohayaBundle/Resources/config/routing/publication.yml"
+    prefix:   /HohayaAdmin/Publication

@@ -1,0 +1,24 @@
+fos_user_group_list:
+    path:     /list
+    defaults: { _controller: fos_user.group.controller:listAction }
+    methods:  [GET]
+
+fos_user_group_new:
+    path:     /new
+    defaults: { _controller: fos_user.group.controller:newAction }
+    methods:  [GET, POST]
+
+fos_user_group_show:
+    path:     /{groupName}
+    defaults: { _controller: fos_user.group.controller:showAction }
+    methods:  [GET]
+
+fos_user_group_edit:
+    path:     /{groupName}/edit
+    defaults: { _controller: fos_user.group.controller:editAction }
+    methods:  [GET, POST]
+
+fos_user_group_delete:
+    path:     /{groupName}/delete
+    defaults: { _controller: fos_user.group.controller:deleteAction }
+    methods:  [GET]

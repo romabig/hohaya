@@ -1,0 +1,19 @@
+hohaya_user_profile_show:
+    path:     /{id}
+    defaults: { _controller: hohaya_user.profile.controller:showAction, id:null }
+    methods:  [GET, POST]
+
+hohaya_user_profile_edit:
+    path:     /modifier/{id}
+    defaults: { _controller: hohaya_user.profile.controller:editAction, id:null }
+    methods:  [GET, POST]
+
+hohaya_user_profile_activate:
+    path:     /activer/{id}
+    defaults: { _controller: hohaya_user.profile.controller:activerCompteAction }
+    methods:  [GET]
+
+hohaya_user_profile_desactivate:
+    path:     /desactiver/{id}
+    defaults: { _controller: hohaya_user.profile.controller:desactiverCompteAction }
+    methods:  [GET]

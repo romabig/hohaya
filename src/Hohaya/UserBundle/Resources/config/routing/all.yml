@@ -1,0 +1,6 @@
+imports:
+    - { resource: "@FOSUserBundle/Resources/config/routing/securite.yml" }
+    - { resource: "@FOSUserBundle/Resources/config/routing/profil.yml", prefix: "/profil" }
+    - { resource: "@FOSUserBundle/Resources/config/routing/inscription.yml", prefix: "/inscription" }
+    - { resource: "@FOSUserBundle/Resources/config/routing/reinitialiser.yml", prefix: "/reinitialisation" }
+    - { resource: "@FOSUserBundle/Resources/config/routing/changer-motdepasse.yml", prefix: "/changer-motdepasse" }
